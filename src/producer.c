@@ -8,17 +8,18 @@ ZBUS_CHAN_DECLARE(custom_data_chan);
 
 void peripheral_thread(void)
 {
-	struct custom_msg sm = {0};
+   struct custom_msg sm = {0};
 
-	while (1) {
-		sm.msg += 1;
+   while (1)
+   {
+      sm.msg += 1;
 
-		LOG_INF("Sending custom data {%u}...", sm.msg);
+      LOG_INF("Sending custom data {%u}...", sm.msg);
 
-		zbus_chan_pub(&custom_data_chan, &sm, K_MSEC(1000));
+      zbus_chan_pub(&custom_data_chan, &sm, K_MSEC(1000));
 
-		k_msleep(500);
-	}
+      k_msleep(500);
+   }
 }
 
 K_THREAD_DEFINE(peripheral_thread_id, 1024, peripheral_thread, NULL, NULL, NULL, 5, 0, 0);
